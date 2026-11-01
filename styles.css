@@ -1,0 +1,30 @@
+:root {
+    --paper: #efe7d5;
+    --ink: #191510;
+    --rust: #be4a22;
+    --muted: #6e6454;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 44px;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1.5;
+}
+
+h1 {
+    margin: 0 0 10px;
+    font-size: 3rem;
+    letter-spacing: -0.03em;
+}
+
+p {
+    max-width: 40ch;
+    color: var(--muted);
+}
