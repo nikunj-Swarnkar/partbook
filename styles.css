@@ -99,16 +99,14 @@ main {
     font-style: italic;
 }
 .project-card{
-    width: 280px;
-    min-height: 300px;
-    margin-top: 36px;
+   min-height: 300px;
     padding: 18px;
     background: #fbf5e6;
     color: var(--ink);
     border: 3px solid var(--ink);
     border-radius: 8px;
     box-shadow: 7px 7px 0 var(--ink);
-    transform: rotate(-1deg);
+    transform: rotate(var(--tilt, -1deg));
 }
 
 .card-topline {
@@ -179,4 +177,50 @@ main {
 
 .card-total strong {
     font-size: 1.5rem;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 30px 24px;
+    margin-top: 36px;
+    align-items: stretch;
+}
+.project-card:nth-child(3n + 1) {
+    --tilt: -1.6deg;
+}
+.project-card:nth-child(3n + 2) {
+    --tilt: 1.2deg;
+}
+
+.project-card:nth-child(3n + 3) {
+    --tilt: -0.8deg;
+}
+.new-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    border: 3px dashed var(--ink);
+    box-shadow: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.new-card:hover {
+    background: #fbf5fb;
+    color: var(--ink);
+    box-shadow: 7px 7px 0 var(--ink);
+
+}
+
+.new-card .plus {
+    font-size: 2.4rem;
+    line-height: 1;
 }
