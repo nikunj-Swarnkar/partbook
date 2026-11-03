@@ -20,9 +20,6 @@ function loadProjects() {
 
 let projects = loadProjects();
 
- saveProjects();
-    dialog.close();
-    renderProjects();
 
 const grid = document.getElementById("project-grid");
 
@@ -112,7 +109,10 @@ form.addEventListener("submit", function (event) {
         total: 0,
         currency: currencySelect.value
     });
-
+    
+    saveProjects();
+    dialog.close();
+    renderProjects();
     dialog.close();
     renderProjects();
 });
