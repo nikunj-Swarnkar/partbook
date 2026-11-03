@@ -98,3 +98,85 @@ main {
     color: var(--muted);
     font-style: italic;
 }
+.project-card{
+    width: 280px;
+    min-height: 300px;
+    margin-top: 36px;
+    padding: 18px;
+    background: #fbf5e6;
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 8px;
+    box-shadow: 7px 7px 0 var(--ink);
+    transform: rotate(-1deg);
+}
+
+.card-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.card-number {
+    padding: 4px 8px;
+    border: 2px solid var(--ink);
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+.card-symbol{
+    color: var(--rust);
+    font-size: 1.4rem;
+}
+
+.project-card h2 {
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+    line-height: 1.1;
+}
+
+.project-card p {
+    min-height: 48px;
+    margin: 0;
+    color: var(--muted);
+    font-style: italic;
+}
+
+.card-details {
+    display: flex;
+    gap: 28px;
+    margin-top: 24px;
+    padding: 12px 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+}
+
+.card-details div {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-details span,
+.card-total span {
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.card-details strong {
+    font-size: 1.15rem;
+}
+
+.card-total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-top: 16px;
+}
+
+.card-total strong {
+    font-size: 1.5rem;
+}
