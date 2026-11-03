@@ -1,13 +1,28 @@
-let projects = [
-    {
-        name: "Name here",
-        note: "note here",
+const STORAGE_KEY = "partbook.projects";
+const starterProjects = [{
+    name: "Robot Arm v2",
+        note: "Six servos, aluminium, one very patient weekend.",
         items: 24,
         units: 137,
         total: 412.8,
         currency: "GBP"
+}];
+
+function loadProjects() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return starterProjects;
+    try {
+        return JSON.parse(saved);
+    } catch(error) { 
+        return starterProjects;
     }
-];
+}
+
+let projects = loadProjects();
+
+ saveProjects();
+    dialog.close();
+    renderProjects();
 
 const grid = document.getElementById("project-grid");
 
@@ -101,5 +116,7 @@ form.addEventListener("submit", function (event) {
     dialog.close();
     renderProjects();
 });
-
+function saveProjects() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+}
 renderProjects();
