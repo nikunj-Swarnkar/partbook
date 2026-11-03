@@ -25,6 +25,41 @@
         <div class="project-grid" id="project-grid"></div>
        </section>
        </main>
+       <dialog id="project-dialog">
+        <form id="project-form">
+            <p class="dialog-label">New project</p>
+            <h2>What are you building ?</h2>
+
+            <div class="dialog-field">
+                <label for="project-name">Name</label>
+                <input id="project-name" type="text" maxlength="60" autocomplete="off" required>
+
+            </div>
+
+            <div class="dialog-field">
+                <label for="project-currency">Currency</label>
+                <select id="project-currency">
+                    <option value="GBP">GBP — Pound sterling</option>
+                    <option value="USD">USD — US dollar</option>
+                    <option value="EUR">EUR — Euro</option>
+                    <option value="JPY">JPY — Japanese yen</option>
+                    <option value="INR">INR — Indian rupee</option>
+                    <option value="AUD">AUD — Australian dollar</option>
+                    <option value="CAD">CAD — Canadian dollar</option>
+                    <option value="CHF">CHF — Swiss franc</option>
+                    <option value="CNY">CNY — Chinese yuan</option>
+                    <option value="SEK">SEK — Swedish krona</option>
+                    <option value="BRL">BRL — Brazilian real</option>
+                    <option value="ZAR">ZAR — South African rand</option>
+                </select>
+            </div>
+            <div class="dialog-actions">
+                <button class="btn ghost" type="button" id="cancel-project">Cancel</button>
+                <button class="btn rust" typr="submit">Creat project </button>
+            </div>
+        </form>
+
+       </dialog>
        <script src="app.js"></script>
     </body>
 
