@@ -62,24 +62,44 @@ function renderProjects() {
     grid.innerHTML = projects.map(cardHtml).join("") + newCard;
 }
 
-grid.addEventListener("click", function (event) {
-    const newButton = event.target.closest("#new-project");
-    if (!newButton) return;
+const dialog = document.getElementById("project-dialog");
+const form = document.getElementById("project-form");
+const nameInput = document.getElementById("project-name");
+const currencySelect = document.getElementById("project-currency");
 
-    const name = prompt("What should this project be called ?");
-    if (!name) return;
+grid.addEventListener("click", function (event) {
+    if (!event.target.closest("#new-project")) return;
+
+    form.reset();
+    currencySelect.value = "GBP";
+    dialog.showModal();
+    nameInput.focus();
+});
+
+document.getElementById("cancel-project").addEventListener("click", function () {
+    dialog.close();
+});
+
+form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = nameInput.value.trim();
+    if (!name) {
+        nameInput.focus();
+        return;
+    }
 
     projects.push({
         name: name,
-        note:"",
-        items:0,
-        units:0,
-        total:0,
-        currency: "GBP"
+        note: "",
+        items: 0,
+        units: 0,
+        total: 0,
+        currency: currencySelect.value
     });
 
+    dialog.close();
     renderProjects();
-
 });
 
 renderProjects();
