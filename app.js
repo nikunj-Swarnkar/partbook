@@ -1,4 +1,4 @@
-const projects = [
+let projects = [
     {
         name: "Name here",
         note: "note here",
@@ -50,7 +50,7 @@ function cardHtml(project, index) {
     
 }
 const newCard = `
-        <button class="project-card new-card" type="button">
+        <button class="project-card new-card" id="new-project" type="button">
         <span class="plus">+</span>
         <span>New project</span>
     </button>
@@ -58,4 +58,28 @@ const newCard = `
 
 `;
 
-grid.innerHTML = projects.map(cardHtml).join("") + newCard;
+function renderProjects() {
+    grid.innerHTML = projects.map(cardHtml).join("") + newCard;
+}
+
+grid.addEventListener("click", function (event) {
+    const newButton = event.target.closest("#new-project");
+    if (!newButton) return;
+
+    const name = prompt("What should this project be called ?");
+    if (!name) return;
+
+    projects.push({
+        name: name,
+        note:"",
+        items:0,
+        units:0,
+        total:0,
+        currency: "GBP"
+    });
+
+    renderProjects();
+
+});
+
+renderProjects();
