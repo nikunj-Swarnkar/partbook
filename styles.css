@@ -3,6 +3,7 @@
     --ink: #191510;
     --rust: #be4a22;
     --muted: #6e6454;
+    --card: #fbf5e6;
 }
 
 * {
@@ -214,7 +215,7 @@ main {
     cursor: pointer;
 }
 .new-card:hover {
-    background: #fbf5fb;
+    background: var(--card);;
     color: var(--ink);
     box-shadow: 7px 7px 0 var(--ink);
 
