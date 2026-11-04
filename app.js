@@ -26,7 +26,7 @@ function createId() {
     return Date.now().toString(36) + Math.random().toString(36).slice(2 ,7);
 }
 
-
+let projects = loadProjects();
 const grid = document.getElementById("project-grid");
 
 function money(amount, currency) {
@@ -132,7 +132,7 @@ function renderRoute() {
     if (!match)
     {
         homeView.hidden = false;
-        projectView.hidden = ture;
+        projectView.hidden = true;
         document.title = "Partbook";
         return;
     }
