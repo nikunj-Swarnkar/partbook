@@ -12,13 +12,19 @@ function loadProjects() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) return starterProjects;
     try {
-        return JSON.parse(saved);
+        const list = JSON.parse(saved);
+        list.forEach(function (project) {
+            if (!project.id) project.id = createId();
+        });
+        return list;
     } catch(error) { 
         return starterProjects;
     }
 }
 
-let projects = loadProjects();
+function createId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2 ,7);
+}
 
 
 const grid = document.getElementById("project-grid");
@@ -33,7 +39,7 @@ function money(amount, currency) {
 function cardHtml(project, index) {
     const number = String(index + 1).padStart(2,"0");
     return `
-    <article class="project-card">
+    <a class="project-card" href="#p/${project.id}">
         <div class="card-topline">
             <span class="card-number">${number}</span>
             <span class="card-symbol">◆</span>
@@ -57,7 +63,7 @@ function cardHtml(project, index) {
                 <span>Total</span>
                 <strong>${money(project.total, project.currency)}</strong>
             </div>
-        </article>
+        </a>
     `;
     
 }
@@ -102,6 +108,7 @@ form.addEventListener("submit", function (event) {
     }
 
     projects.push({
+        id: createId(),
         name: name,
         note: "",
         items: 0,
@@ -113,10 +120,38 @@ form.addEventListener("submit", function (event) {
     saveProjects();
     dialog.close();
     renderProjects();
-    dialog.close();
-    renderProjects();
+    
 });
 function saveProjects() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
 }
-renderProjects();
+function renderRoute() {
+    const match = location.hash.match(/^#p\/(.+)$/);
+    const homeView = document.getElementById("projects");
+    const projectView = document.getElementById("project-view");
+    if (!match)
+    {
+        homeView.hidden = false;
+        projectView.hidden = ture;
+        document.title = "Partbook";
+        return;
+    }
+
+    const project = projects.find(function (p) {
+        return p.id === match[1];
+    });
+    if (!project) {
+        location.hash = "#/";
+        return;
+    }
+    document.getElementById("project-title").textContent = project.name;
+    document.getElementById("project-note").textContent = project.note || "No description yet.";
+    homeView.hidden = true;
+    projectView.hidden = false;
+    document.title = project.name + " · Partbook";
+ }
+
+ window.addEventListener("hashchange",renderRoute);
+
+ renderProjects();
+ renderRoute();

@@ -326,3 +326,31 @@ select:focus {
     background: transparent;
     box-shadow: none;
 }
+.project-card {
+    display: block;
+    text-decoration: none;
+}
+.back {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.back:hover {
+    color: var(--rust);
+}
+
+.project-head{
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+}
+
+.project-head h1 {
+    margin: 0 0 8px;
+}
