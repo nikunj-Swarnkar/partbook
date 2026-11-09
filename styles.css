@@ -355,3 +355,96 @@ select:focus {
 .project-head h1 {
     margin: 0 0 8px;
 }
+.stats {
+    display: grid;
+     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.stat {
+    padding: 12px 14px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 4px 4px 0 var(--ink);
+}
+
+.stat-label {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--muted);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.stat strong {
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.panel {
+    padding: 20px;
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    box-shadow: 5px 5px 0 var(--ink);
+}
+
+.panel-title {
+    margin-bottom: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+}
+
+thead th {
+    padding: 0 10px 8px;
+    border-bottom: 2px solid var(--ink);
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+}
+
+thead th.r {
+    text-align: right;
+}
+
+tbody td {
+    padding: 11px 10px;
+    border-bottom: 1px solid rgba(25, 21, 16, 0.12);
+}
+
+tbody td.r {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.empty {
+    padding: 40px 16px;
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+}
+
+@media (max-width: 640px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+}

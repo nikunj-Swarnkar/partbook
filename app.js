@@ -1,25 +1,30 @@
 const STORAGE_KEY = "partbook.projects";
 const starterProjects = [{
+    id: "starter-robot-arm",
     name: "Robot Arm v2",
-        note: "Six servos, aluminium, one very patient weekend.",
-        items: 24,
-        units: 137,
-        total: 412.8,
-        currency: "GBP"
+    note: "Six servos, aluminium, one very patient weekend.",
+    currency: "GBP",
+    parts: [
+        { name: "MG996R servo", link: "", cost: 8.9, qty: 6 },
+        { name: "Servo bracket", link: "", cost: 12.4, qty: 4 },
+        { name: "M3 bolt", link: "", cost: 0.12, qty: 40 }
+    ]
 }];
 
+
 function loadProjects() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return starterProjects;
-    try {
+     const saved = localStorage.getItem(STORAGE_KEY);
+     if (!saved) return starterProjects;
+     try {
         const list = JSON.parse(saved);
         list.forEach(function (project) {
             if (!project.id) project.id = createId();
+            if (!Array.isArray(project.parts)) project.parts = [];
         });
         return list;
-    } catch(error) { 
+     } catch (error) {
         return starterProjects;
-    }
+     }
 }
 
 function createId() {
@@ -36,13 +41,26 @@ function money(amount, currency) {
     }).format(amount);
 }
 
+function unitsOf(project) {
+    return project.parts.reduce(function (sum, part)
+    {
+        return sum + part.qty ; 
+    } ,0);
+}
+
+function totalOf(project) {
+    return project.parts.reduce(function (sum, part) {
+        return sum + part.cost * part.qty ;
+    } , 0 ) ; 
+}
+
 function cardHtml(project, index) {
     const number = String(index + 1).padStart(2,"0");
     return `
     <a class="project-card" href="#p/${project.id}">
         <div class="card-topline">
             <span class="card-number">${number}</span>
-            <span class="card-symbol">◆</span>
+            <span class="card-symbol">&#9670;</span>
             </div>
 
             <h2>${project.name}</h2>
@@ -51,17 +69,17 @@ function cardHtml(project, index) {
             <div class="card-details">
                 <div>
                     <span>Items</span>
-                    <strong>${project.items}</strong>
+                    <strong>${project.parts.length}</strong>
                 </div>
                 <div>
                     <span>Units</span>
-                    <strong>${project.units}</strong>
+                    <strong>${unitsOf(project)}</strong>
                 </div>
             </div>
 
             <div class="card-total">
                 <span>Total</span>
-                <strong>${money(project.total, project.currency)}</strong>
+                <strong>${money(totalOf(project), project.currency)}</strong>
             </div>
         </a>
     `;
@@ -111,9 +129,7 @@ form.addEventListener("submit", function (event) {
         id: createId(),
         name: name,
         note: "",
-        items: 0,
-        units: 0,
-        total: 0,
+        parts: [],
         currency: currencySelect.value
     });
     
@@ -124,6 +140,28 @@ form.addEventListener("submit", function (event) {
 });
 function saveProjects() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+}
+
+function renderParts(project) {
+    const body= document.getElementById("parts-body");
+    if (project.parts.length === 0) {
+        body.innerHTML = '<tr><td colspan="5" class="empty">No parts yet.</td></tr>';
+    }  else {
+        body.innerHTML = project.parts.map(function (part) {
+            return `
+                <tr>
+                    <td>${part.name}</td>
+                    <td>${part.link || "—"}</td>
+                    <td class="r">${money(part.cost, project.currency)}</td>
+                    <td class="r">${part.qty}</td>
+                    <td class="r">${money(part.cost * part.qty, project.currency)}</td>
+                </tr>
+            `;
+        }).join("");
+    }
+    document.getElementById("stat-parts").textContent = project.parts.length;
+    document.getElementById("stat-units").textContent = unitsOf(project);
+    document.getElementById("stat-total").textContent = money(totalOf(project), project.currency);
 }
 function renderRoute() {
     const match = location.hash.match(/^#p\/(.+)$/);
@@ -146,9 +184,10 @@ function renderRoute() {
     }
     document.getElementById("project-title").textContent = project.name;
     document.getElementById("project-note").textContent = project.note || "No description yet.";
+    renderParts(project);
     homeView.hidden = true;
     projectView.hidden = false;
-    document.title = project.name + " · Partbook";
+    document.title = project.name + " - Partbook";
  }
 
  window.addEventListener("hashchange",renderRoute);

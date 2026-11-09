@@ -25,13 +25,43 @@
         <div class="project-grid" id="project-grid"></div>
        </section>
        <section id="project-view" hidden>
-       <a class="back" href="#/">← All projects</a>  
+       <a class="back" href="#/">&larr; All projects</a>  
        <header class="project-head">
-        <p class="section-label">project</p>
+        <p class="section-label">Project</p>
         <h1 id="project-title">Project</h1>
         <p class="section-note" id="project-note"></p>
        </header>
-
+       <div class="stats">
+        <div class="stat">
+            <span class="stat-label">Parts</span>
+            <strong id="stat-parts">0</strong>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Units</span>
+            <strong id="stat-units">0</strong>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Total</span>
+            <strong id="stat-total">-</strong>
+        </div>
+       </div>
+       <div class="panel">
+        <div class="panel-title">Bill of materials</div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Part</th>
+                        <th>Link</th>
+                        <th class="r">Unit cost</th>
+                        <th class="r">Qty</th>
+                        <th class="r">Total</th>
+                    </tr>
+                </thead>
+                <tbody id="parts-body"></tbody>
+            </table>
+        </div>
+       </div>
        </section>
        </main>
        <dialog id="project-dialog">
@@ -64,7 +94,7 @@
             </div>
             <div class="dialog-actions">
                 <button class="btn ghost" type="button" id="cancel-project">Cancel</button>
-                <button class="btn rust" typr="submit">Creat project </button>
+                <button class="btn rust" type="submit">Creat project </button>
             </div>
         </form>
 
