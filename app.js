@@ -32,6 +32,7 @@ function createId() {
 }
 
 let projects = loadProjects();
+let currentProject = null;
 const grid = document.getElementById("project-grid");
 
 function money(amount, currency) {
@@ -136,8 +137,43 @@ form.addEventListener("submit", function (event) {
     saveProjects();
     dialog.close();
     renderProjects();
-    
+
 });
+    const partForm = document.getElementById("part-form");
+
+    partForm.addEventListener("submit" , function (event) {
+        event.preventDefault();
+        if (!currentProject) return;
+    const partName = document.getElementById("part-name").value.trim();
+    const link = document.getElementById("part-link").value.trim();
+    const cost = Number(document.getElementById("part-cost").value);
+    const qty = Number(document.getElementById("part-qty").value);
+
+    if (!partName || !isFinite(cost) || !isFinite(qty) || qty < 1) return;
+
+    currentProject.parts.push({
+        name: partName,
+        link: link,
+        cost: cost,
+        qty: qty
+    });
+
+    saveProjects();
+    renderParts(currentProject);
+    renderProjects();
+
+    partForm.reset();
+    document.getElementById("part-qty").value = "1";
+    document.getElementById("part-name").focus();
+
+});
+
+
+
+
+
+
+
 function saveProjects() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
 }
@@ -182,6 +218,7 @@ function renderRoute() {
         location.hash = "#/";
         return;
     }
+    currentProject = project;
     document.getElementById("project-title").textContent = project.name;
     document.getElementById("project-note").textContent = project.note || "No description yet.";
     renderParts(project);

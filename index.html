@@ -47,6 +47,25 @@
        </div>
        <div class="panel">
         <div class="panel-title">Bill of materials</div>
+        <form class="part-form" id="part-form">
+            <label>
+                <span>Part</span>
+                <input id="part-name" type="text" maxlength="80" autocomplete="off" required>
+            </label>
+            <label>
+                <span>Link</span>
+                <input id="part-link" type="text" placeholder="https://" autocomplete="off">
+            </label>
+            <label>
+                <span>Cost</span>
+                <input id="part-cost" type="number" min="0" step="0.01" required>
+            </label>
+            <label>
+                <span>Qty</span>
+                <input id="part-qty" type="number" min="1" step="1" value="1" required>
+            </label>
+            <button class="btn rust" type="submit">Add part</button>
+        </form>
         <div class="table-wrap">
             <table>
                 <thead>
